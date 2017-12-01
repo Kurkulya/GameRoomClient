@@ -1,17 +1,26 @@
 import './Games.scss';
 import React, { Component } from 'react';
 import Game from '../Game/Game';
+import {getGames} from '../../Requests/roomRequests';
 
 class Games extends Component {
     constructor (props) {
         super(props);
+        this.state = {
+            games: []
+        };
+    }
+    componentWillMount () {
+        getGames().then((response) => {
+            this.setState({ games: response });
+        });
     }
     render () {
         return (
             <div className='games'>
                 <h1>Games</h1>
-                {this.props.games.map((game) =>
-                    <Game {...game}/>
+                {this.state.games.map((game) =>
+                    <Game key={game.id} game={game}/>
                 )}
             </div>
         );

@@ -10,13 +10,13 @@ class Room extends Component {
         return (
             <div className='room'>
                 <div className='room-title'>
-                    <text>Room {this.props.title}</text>
+                    <text>Room {this.props.room.title}</text>
                 </div>
                 <div className='room-img'>
-                    <img src={this.props.image}/>
+                    <img src={this.props.room.image}/>
                 </div>
                 <div className='room-players'>
-                    <text>Players {this.props.currentPlayers}/{this.props.maxPlayers}</text>
+                    <text>Players {this.props.room.currentPlayers}/{this.props.room.maxPlayers}</text>
                 </div>
             </div>
         );
@@ -24,10 +24,7 @@ class Room extends Component {
 }
 
 Room.propTypes = {
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    currentPlayers: PropTypes.number.isRequired,
-    maxPlayers: PropTypes.number.isRequired
+    room: PropTypes.object.isRequired
 };
 
 export default Room;

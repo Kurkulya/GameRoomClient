@@ -2,9 +2,7 @@ import './Window.scss';
 import React, { Component } from 'react';
 import GameRoom from '../GameRoom/GameRoom';
 import Games from '../Games/Games';
-import {games} from '../../../__mocks__/gameDataMock';
 import Info from '../LeftArea/Info';
-import {rooms} from '../../../__mocks__/roomDataMock';
 import User from '../LeftArea/User';
 import {userData} from '../../../__mocks__/userDataMock';
 
@@ -20,8 +18,8 @@ class Window extends Component {
                         <div> <User {...userData}/> </div>
                         <div> </div><Info/>
                     </div>
-                    <GameRoom rooms={rooms}/>
-                    <Games games={games}/>
+                    <GameRoom />
+                    <Games />
                 </div>
             </div>
         );

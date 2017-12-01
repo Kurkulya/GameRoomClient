@@ -1,17 +1,21 @@
 import './Game.scss';
 import React, { Component } from 'react';
+import {createRoom} from '../../Requests/roomRequests';
+import CreateRoom from '../CreateRoom/CreateRoom';
 import PropTypes from 'prop-types';
-import CreateRoom from "../CreateRoom/CreateRoom";
 
 class Game extends Component {
     constructor (props) {
         super(props);
         this.state = {
             isShowingModal: false,
-        }
+            room: {}
+        };
     }
     handleClick = () => {
-        this.setState({isShowingModal: true});
+        createRoom(this.props.game).then((response) => {
+            this.setState({isShowingModal: true, room: response});
+        });
     };
     closeModal = () => {
         this.setState({isShowingModal: false});
@@ -19,9 +23,9 @@ class Game extends Component {
     render () {
         return (
             <div className='game'>
-                {this.state.isShowingModal && <CreateRoom onCloseModal={this.closeModal}/>}
+                {this.state.isShowingModal && <CreateRoom room={this.state.room} onCloseModal={this.closeModal}/>}
                 <div className='game-img'>
-                    <img src={this.props.image} onClick={this.handleClick}/>
+                    <img src={this.props.game.image} onClick={this.handleClick}/>
                 </div>
             </div>
         );
@@ -29,8 +33,7 @@ class Game extends Component {
 }
 
 Game.propTypes = {
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string
+    game: PropTypes.object.isRequired
 };
 
 export default Game;

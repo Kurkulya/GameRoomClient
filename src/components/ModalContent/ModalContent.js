@@ -1,46 +1,47 @@
-import {games} from '../../../__mocks__/gameDataMock';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {startGame} from '../../Requests/roomRequests';
 
-class ModalContent extends React.Component{
-    constructor (props){
+class ModalContent extends React.Component {
+    constructor (props) {
         super(props);
     }
-
-    render(){
+    connectToGame =() => {
+        startGame();
+    };
+    render () {
         const maxPlayersArray = [];
-        for(let i = 1; i<= this.props.maxPlayers; i++)
-        {
+        for (let i = 1; i <= this.props.room.maxPlayers; i++) {
             maxPlayersArray.push(i);
         }
         return (
             <div className='modal-content'>
                 <div className='game-info'>
-                    <img src={this.props.image}/>
-                    <h3>{this.props.title}</h3>
+                    <img src={this.props.room.image}/>
+                    <h3>{this.props.room.title}</h3>
                 </div>
                 <div className='host-info'>
                     <h3>Host:</h3>
-                    <h3>{this.props.host}</h3>
+                    <h3>Vampirqer</h3>  /* Add host field */
                 </div>
                 <div className='game-settings'>
                     <h3>Game settings:</h3>
                     <div className='playercount'>
                         {maxPlayersArray.map((player) =>
-                            <input type="radio"  placeholder={player} name="322"/>
+                            <input type="radio" placeholder={player} name="322"/>
                         )}
                     </div>
                 </div>
                 <div className='game-info-'>
                     <h3>Players:</h3>
-                    <div className='playerscount'>
-                        {this.props.players.map((players) =>
+                    <div className='playerscount'>   /* Add players field */
+                        {['player1', 'player2'].map((players) =>
                             <h4>{players}</h4>
                         )}
                     </div>
                 </div>
                 <div className='modalButtons'>
-                    <input type="button" value="Start Game"/>
+                    <a ref='startGame' href={this.props.room.gameServer} target="_blank" onClick={this.connectToGame}>Start Game</a>
                     <input type="button" value="Cancel" onClick={this.props.onRequestClose}/>
                 </div>
             </div>
@@ -49,11 +50,7 @@ class ModalContent extends React.Component{
 }
 
 ModalContent.propTypes = {
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    host: PropTypes.string.isRequired,
-    maxPlayers: PropTypes.number.isRequired,
-    players: PropTypes.array
+    room: PropTypes.object.isRequired
 };
 
-export  default ModalContent;
+export default ModalContent;
