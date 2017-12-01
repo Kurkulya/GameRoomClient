@@ -1,16 +1,24 @@
 import './Room.scss';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Websocket from 'react-websocket';
 
 class Room extends Component {
     constructor (props) {
         super(props);
+        this.state = {
+            roomUrl: 'ws://localhost:8050/' + this.props.room.id
+        };
     }
+    onMessage = (data) => {
+        let adata = data;
+    };
     render () {
         return (
             <div className='room'>
+                <Websocket url={this.state.roomUrl} onMessage={this.onMessage(this)}/>
                 <div className='room-title'>
-                    <text>Room {this.props.room.title}</text>
+                    <text>{this.props.room.title}</text>
                 </div>
                 <div className='room-img'>
                     <img src={this.props.room.image}/>

@@ -22,7 +22,7 @@ class ModalContent extends React.Component {
                 </div>
                 <div className='host-info'>
                     <h3>Host:</h3>
-                    <h3>Vampirqer</h3>  /* Add host field */
+                    <h3>Vampirqer</h3>
                 </div>
                 <div className='game-settings'>
                     <h3>Game settings:</h3>
@@ -34,7 +34,7 @@ class ModalContent extends React.Component {
                 </div>
                 <div className='game-info-'>
                     <h3>Players:</h3>
-                    <div className='playerscount'>   /* Add players field */
+                    <div className='playerscount'>
                         {['player1', 'player2'].map((players) =>
                             <h4>{players}</h4>
                         )}

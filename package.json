@@ -77,6 +77,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-tabs": "^2.1.1",
+    "react-websocket": "^2.0.0",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "sass-loader": "^6.0.6",

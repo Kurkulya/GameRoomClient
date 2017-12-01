@@ -9,6 +9,15 @@ export function startGame () {
         });
 }
 
+export function stopGame () {
+    return axios.get('http://localhost:3000/rooms/stop_server', {headers: {}})
+        .then((response) => {
+            if (response.status === 200) {
+                return Promise.resolve(response.data);
+            }
+        });
+}
+
 export function createRoom (game) {
     return axios.post('http://localhost:3000/rooms/', { room: {
         title: 'Room',

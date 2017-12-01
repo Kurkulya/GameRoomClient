@@ -15,8 +15,10 @@ class Window extends Component {
             <div>
                 <div className='window'>
                     <div className='left-area'>
-                        <div> <User {...userData}/> </div>
-                        <div> </div><Info/>
+                        <div>
+                            <User {...userData}/>
+                        </div>
+                        <Info/>
                     </div>
                     <GameRoom />
                     <Games />
