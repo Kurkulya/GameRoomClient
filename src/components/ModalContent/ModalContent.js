@@ -1,48 +1,33 @@
+import './ModalContent.scss';
+import ChatClient from './ChatClient';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {startGame} from '../../Requests/roomRequests';
+import RoomInfo from './RoomInfo';
 
 class ModalContent extends React.Component {
     constructor (props) {
         super(props);
+        this.state = {
+            isJoinedToGame: false,
+            websocket: new WebSocket(this.props.room.WebSocketUrl)
+        };
     }
-    connectToGame =() => {
-        startGame();
+    changeJoinGameState =() => {
+        this.setState({isJoinedToGame: true});
     };
     render () {
-        const maxPlayersArray = [];
-        for (let i = 1; i <= this.props.room.maxPlayers; i++) {
-            maxPlayersArray.push(i);
-        }
         return (
             <div className='modal-content'>
-                <div className='game-info'>
-                    <img src={this.props.room.image}/>
-                    <h3>{this.props.room.title}</h3>
-                </div>
-                <div className='host-info'>
-                    <h3>Host:</h3>
-                    <h3>Vampirqer</h3>  /* Add host field */
-                </div>
-                <div className='game-settings'>
-                    <h3>Game settings:</h3>
-                    <div className='playercount'>
-                        {maxPlayersArray.map((player) =>
-                            <input type="radio" placeholder={player} name="322"/>
-                        )}
+                <div className='room-info'>
+                    <RoomInfo room={this.props.room} websocket={this.state.websocket}/>
+                    <div className='modalButtons'>
+                        <button onClick={this.changeJoinGameState}>Join Game</button>
+                        <button onClick={this.props.onRequestClose}>Exit Room</button>
                     </div>
                 </div>
-                <div className='game-info-'>
-                    <h3>Players:</h3>
-                    <div className='playerscount'>   /* Add players field */
-                        {['player1', 'player2'].map((players) =>
-                            <h4>{players}</h4>
-                        )}
-                    </div>
-                </div>
-                <div className='modalButtons'>
-                    <a ref='startGame' href={this.props.room.gameServer} target="_blank" onClick={this.connectToGame}>Start Game</a>
-                    <input type="button" value="Cancel" onClick={this.props.onRequestClose}/>
+                <div className='game-instance'>
+                    {this.state.isJoinedToGame &&
+                    <ChatClient websocket={this.state.websocket}/>}
                 </div>
             </div>
         );

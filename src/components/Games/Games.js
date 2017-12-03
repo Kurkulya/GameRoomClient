@@ -11,9 +11,7 @@ class Games extends Component {
         };
     }
     componentWillMount () {
-        getGames().then((response) => {
-            this.setState({ games: response });
-        });
+        this.setState({ games: getGames() });
     }
     render () {
         return (

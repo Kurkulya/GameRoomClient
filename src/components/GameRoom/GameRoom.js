@@ -21,7 +21,7 @@ class GameRoom extends Component {
                 <h1>Game Rooms</h1>
                 <div className='rooms'>
                     {this.state.rooms.map((room) =>
-                        <Room key={room.id} room={room}/>
+                        <Room key={room.Id} room={room}/>
                     )}
                 </div>
             </div>

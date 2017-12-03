@@ -1,22 +1,33 @@
 import './Room.scss';
 import React, { Component } from 'react';
+import CreateRoom from '../CreateRoom/CreateRoom';
 import PropTypes from 'prop-types';
 
 class Room extends Component {
     constructor (props) {
         super(props);
+        this.state = {
+            isShowingModal: false
+        };
     }
+    handleClick = () => {
+        this.setState({isShowingModal: true});
+    };
+    closeModal = () => {
+        this.setState({isShowingModal: false});
+    };
     render () {
         return (
             <div className='room'>
+                {this.state.isShowingModal && <CreateRoom room={this.props.room} onCloseModal={this.closeModal}/>}
                 <div className='room-title'>
-                    <text>Room {this.props.room.title}</text>
+                    <text>Room {this.props.room.Title}</text>
                 </div>
                 <div className='room-img'>
-                    <img src={this.props.room.image}/>
+                    <img src={this.props.room.ImageUrl} onClick={this.handleClick}/>
                 </div>
                 <div className='room-players'>
-                    <text>Players {this.props.room.currentPlayers}/{this.props.room.maxPlayers}</text>
+                    <text>Players {this.props.room.CurrentPlayers}/{this.props.room.MaxPlayers}</text>
                 </div>
             </div>
         );
