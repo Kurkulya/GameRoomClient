@@ -1,8 +1,8 @@
 import './ModalContent.scss';
-import ChatClient from './ChatClient';
 import PropTypes from 'prop-types';
 import React from 'react';
 import RoomInfo from './RoomInfo';
+import TTTClient from './TTTClient';
 
 class ModalContent extends React.Component {
     constructor (props) {
@@ -27,7 +27,7 @@ class ModalContent extends React.Component {
                 </div>
                 <div className='game-instance'>
                     {this.state.isJoinedToGame &&
-                    <ChatClient websocket={this.state.websocket}/>}
+                    <TTTClient websocket={this.state.websocket}/>}
                 </div>
             </div>
         );
