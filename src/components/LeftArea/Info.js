@@ -1,6 +1,7 @@
 import './Info.scss';
 import 'react-tabs/style/react-tabs.scss';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import Players from './Players';
 import React from 'react';
 
 class Info extends React.Component {
@@ -17,7 +18,7 @@ class Info extends React.Component {
                     <Tab>Top Players</Tab>
                 </TabList>
                 <TabPanel>
-                    <h1>1</h1>
+                    <Players/>
                 </TabPanel>
                 <TabPanel>
                     <h1>2</h1>

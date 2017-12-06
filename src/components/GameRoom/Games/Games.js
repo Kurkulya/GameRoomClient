@@ -1,7 +1,7 @@
 import './Games.scss';
 import React, { Component } from 'react';
-import Game from '../Game/Game';
-import {getGames} from '../../Requests/roomRequests';
+import Game from './Game/Game';
+import {getGames} from '../../../Requests/roomRequests';
 
 class Games extends Component {
     constructor (props) {
@@ -18,7 +18,7 @@ class Games extends Component {
             <div className='games'>
                 <h1>Games</h1>
                 {this.state.games.map((game) =>
-                    <Game key={game.id} game={game}/>
+                    <Game key={game.id} webSocket={this.props.webSocket} game={game}/>
                 )}
             </div>
         );

@@ -1,6 +1,7 @@
 import './Room.scss';
 import React, { Component } from 'react';
-import CreateRoom from '../CreateRoom/CreateRoom';
+import Modal from 'react-modal';
+import ModalContent from '../../../ModalContent/ModalContent';
 import PropTypes from 'prop-types';
 
 class Room extends Component {
@@ -19,7 +20,10 @@ class Room extends Component {
     render () {
         return (
             <div className='room'>
-                {this.state.isShowingModal && <CreateRoom room={this.props.room} onCloseModal={this.closeModal}/>}
+                {this.state.isShowingModal &&
+                <Modal isOpen={true} contentLabel="Game Lobby">
+                    <ModalContent room={this.props.room} onRequestClose={this.closeModal}/>
+                </Modal>}
                 <div className='room-title'>
                     <text>Room {this.props.room.Title}</text>
                 </div>
