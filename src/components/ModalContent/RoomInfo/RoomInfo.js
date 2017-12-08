@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+const UPDATE_PLAYERS = 'updatePlayers';
+
 class RoomInfo extends React.Component {
     constructor (props) {
         super(props);
@@ -10,8 +12,11 @@ class RoomInfo extends React.Component {
         this.props.websocket.onmessage = this.onMessage;
     }
     onMessage = (data) => {
-        if (JSON.parse(data.data).type === 'userJoined') {
-            this.setState({players: JSON.parse(data.data).players});
+        const response = JSON.parse(data.data);
+        switch (response.type) {
+        case UPDATE_PLAYERS:
+            this.setState({players: response.data});
+            break;
         }
     };
     render () {

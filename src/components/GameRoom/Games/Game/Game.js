@@ -4,8 +4,8 @@ import Modal from 'react-modal';
 import ModalContent from '../../../ModalContent/ModalContent';
 import PropTypes from 'prop-types';
 
-const GET_CREATED_ROOM = 'getCreatedRoom';
-const CREATE_ROOM = 'createRoom';
+const GAME_CREATED = 'gameCreated';
+const CREATE_GAME = 'createGame';
 
 class Game extends Component {
     constructor (props) {
@@ -19,15 +19,15 @@ class Game extends Component {
     onMessageGame = (data) => {
         const response = JSON.parse(data.data);
         switch (response.type) {
-        case GET_CREATED_ROOM:
-            this.setState({isShowingModal: true, room: response.room});
+        case GAME_CREATED:
+            this.setState({isShowingModal: true, room: response.data});
             break;
         }
     };
     handleClick = () => {
         this.props.webSocket.send(JSON.stringify({
-            type: CREATE_ROOM,
-            room: {
+            type: CREATE_GAME,
+            data: {
                 title: 'Room',
                 imageUrl: this.props.game.image,
                 maxPlayers: this.props.game.maxPlayers,

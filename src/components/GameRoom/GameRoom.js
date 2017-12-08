@@ -7,7 +7,7 @@ class GameRoom extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            webSocket: new WebSocket('ws://localhost:8888/Rooms'),
+            webSocket: new WebSocket('ws://localhost:8888/Games'),
             rooms: []
         };
     }

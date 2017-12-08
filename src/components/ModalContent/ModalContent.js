@@ -1,8 +1,8 @@
 import './ModalContent.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
-import RoomInfo from './RoomInfo';
-import TTTClient from './TTTClient';
+import RoomInfo from './RoomInfo/RoomInfo';
+import TTTClient from './TTTClient/TTTClient';
 
 class ModalContent extends React.Component {
     constructor (props) {
@@ -15,6 +15,10 @@ class ModalContent extends React.Component {
     changeJoinGameState =() => {
         this.setState({isJoinedToGame: true});
     };
+    closeConnectionOnClose = () => {
+        this.state.websocket.close();
+        this.props.onRequestClose();
+    };
     render () {
         return (
             <div className='modal-content'>
@@ -22,7 +26,7 @@ class ModalContent extends React.Component {
                     <RoomInfo room={this.props.room} websocket={this.state.websocket}/>
                     <div className='modalButtons'>
                         <button onClick={this.changeJoinGameState}>Join Game</button>
-                        <button onClick={this.props.onRequestClose}>Exit Room</button>
+                        <button onClick={this.closeConnectionOnClose}>Exit Room</button>
                     </div>
                 </div>
                 <div className='game-instance'>

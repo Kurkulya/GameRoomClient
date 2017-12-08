@@ -1,6 +1,7 @@
 import React from 'react';
 
 const UPDATE_USERS = 'updateUsers';
+// const GET_ONLINE_USERS = 'getOnlineUsers';
 
 class Players extends React.Component {
     constructor (props) {
@@ -15,7 +16,7 @@ class Players extends React.Component {
         const response = JSON.parse(data.data);
         switch (response.type) {
         case UPDATE_USERS:
-            this.setState({users: response.users});
+            this.setState({users: response.data});
             break;
         }
     };

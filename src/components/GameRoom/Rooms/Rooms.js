@@ -2,7 +2,7 @@ import './Rooms.scss';
 import React, { Component } from 'react';
 import Room from './Room/Room';
 
-const UPDATE_ROOMS = 'updateRooms';
+const UPDATE_GAMES = 'updateGames';
 
 class Rooms extends Component {
     constructor (props) {
@@ -15,8 +15,8 @@ class Rooms extends Component {
     onMessageRooms = (data) => {
         const response = JSON.parse(data.data);
         switch (response.type) {
-        case UPDATE_ROOMS:
-            this.setState({rooms: response.rooms});
+        case UPDATE_GAMES:
+            this.setState({rooms: response.data});
             break;
         }
     };

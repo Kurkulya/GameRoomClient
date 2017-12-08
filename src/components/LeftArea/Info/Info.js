@@ -1,7 +1,7 @@
 import './Info.scss';
 import 'react-tabs/style/react-tabs.scss';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Players from './Players';
+import Players from './Players/Players';
 import React from 'react';
 
 class Info extends React.Component {
