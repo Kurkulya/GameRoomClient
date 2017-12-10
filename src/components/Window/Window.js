@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import GameRoom from '../GameRoom/GameRoom';
 import Info from '../LeftArea/Info/Info';
 import User from '../LeftArea/User/User';
-import {userData} from '../../../__mocks__/userDataMock';
 
 class Window extends Component {
     constructor (props) {
@@ -14,8 +13,8 @@ class Window extends Component {
             <div>
                 <div className='window'>
                     <div className='left-area'>
-                        <div> <User {...userData}/> </div>
-                        <div> </div><Info/>
+                        <div> <User user = {this.props.user}/> </div>
+                        <Info webSocket={this.props.webSocket}/>
                     </div>
                     <GameRoom />
                 </div>

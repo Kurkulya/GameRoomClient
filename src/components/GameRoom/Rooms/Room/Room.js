@@ -25,13 +25,13 @@ class Room extends Component {
                     <ModalContent room={this.props.room} onRequestClose={this.closeModal}/>
                 </Modal>}
                 <div className='room-title'>
-                    <text>Room {this.props.room.Title}</text>
+                    <strong>Room {this.props.room.Title}</strong>
                 </div>
                 <div className='room-img'>
                     <img src={this.props.room.ImageUrl} onClick={this.handleClick}/>
                 </div>
                 <div className='room-players'>
-                    <text>Players {this.props.room.CurrentPlayers}/{this.props.room.MaxPlayers}</text>
+                    <strong>{this.props.room.CurrentPlayers}/{this.props.room.MaxPlayers}</strong>
                 </div>
             </div>
         );

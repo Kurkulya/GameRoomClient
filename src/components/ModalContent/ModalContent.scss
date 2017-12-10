@@ -1,8 +1,23 @@
 .modal-content{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  margin: auto;
-  .game-info{
-    border: 1px solid black;
+  color: dimgrey;
+  .room-info{
+    margin: auto;
+    padding: auto;
+    border: 2px solid whitesmoke;
+  }
+  button {
+    margin: 1px;
+    padding: 5px 25px;
+    align-self: flex-start;
+    background-color: cornflowerblue;
+    color: #fff;
+    border: none;
+    outline: none;
+    &:hover {
+      background-color: #3F51B5;
+    }
   }
 }

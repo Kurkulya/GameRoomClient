@@ -23,9 +23,13 @@ class Rooms extends Component {
     render () {
         return (
             <div className='rooms'>
-                {this.state.rooms.map((room) =>
-                    <Room key={room.Id} room={room}/>
-                )}
+                <div>
+                    <ul>
+                        {this.state.rooms.map((room) =>
+                            <li><a><Room key={room.Id} room={room}/></a></li>
+                        )}
+                    </ul>
+                </div>
             </div>
         );
     }

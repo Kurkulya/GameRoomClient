@@ -1,6 +1,13 @@
 .games {
   display: flex;
+  background-color: gray;
   flex-direction: column;
-  border: 1px solid blue;
-  width: 20%;
+  border: 2px solid whitesmoke;
+  width: 12%;
+  strong {
+    text-align: center;
+    border-bottom: 2px whitesmoke solid;
+    font-size: 25px;
+    color: whitesmoke;
+  }
 }

@@ -21,17 +21,8 @@ class RoomInfo extends React.Component {
     };
     render () {
         return (
-            <div >
-                <div className='game-info'>
-                    <img src={this.props.room.ImageUrl}/>
-                    <h3>{this.props.room.Title}</h3>
-                </div>
-                <div className='host-info'>
-                    <h3>Host: {this.props.room.Host}</h3>
-                </div>
-                <div className='game-info-'>
-                    <h3>Players: {this.state.players}</h3>
-                </div>
+            <div className='game-info'>
+                <h3>Players: {this.state.players}</h3>
             </div>
         );
     }

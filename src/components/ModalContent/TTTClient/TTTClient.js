@@ -79,7 +79,7 @@ class TTTClient extends Component {
         return (
             <div className='TTT'>
                 <h1 className="game-title">Websocket Tic Tac Toe</h1>
-                {this.state.winnerPresent ? <h2>{this.state.winnerName}</h2>
+                {this.state.winnerPresent ? <strong className='winner-title'>{this.state.winnerName}</strong>
                     : <div className="game">
                         <table className="game-board" onClick={this.handleClick}>
                             <tr>

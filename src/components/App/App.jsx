@@ -1,46 +1,27 @@
 import './App.scss';
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {validateToken} from '../../redux/actions/userActions';
+import SignIn from '../User/SignIn';
 import Window from '../Window/Window';
-import {withRouter} from 'react-router-dom';
 
 class App extends Component {
     constructor (props) {
         super(props);
+        this.state = {
+            isSignedIn: false,
+            user: {},
+            webSocket: new WebSocket('ws://localhost:8888/Users')
+        };
     }
-    componentWillMount () {
-        this.props.validateToken();
-    }
+    signIn = (user) => {
+        this.setState({isSignedIn: true, user: user});
+    };
     render () {
         return (
             <div className='App'>
-                <Window/>
+                {this.state.isSignedIn ? <Window user={this.state.user} webSocket={this.state.webSocket}/> : <SignIn signIn={this.signIn} webSocket={this.state.webSocket}/>}
             </div>
         );
     }
 }
 
-App.propTypes = {
-    isSignedIn: PropTypes.bool.isRequired,
-    validateToken: PropTypes.func.isRequired
-};
-
-App.defaultProps = {
-    isSignedIn: false
-};
-
-function mapStateToProps (state) {
-    return {
-        isSignedIn: state.user.isSignedIn
-    };
-}
-
-function mapDispatchToProps (dispatch) {
-    return {
-        validateToken: () => dispatch(validateToken())
-    };
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default App;

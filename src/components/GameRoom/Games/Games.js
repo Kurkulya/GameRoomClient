@@ -16,7 +16,7 @@ class Games extends Component {
     render () {
         return (
             <div className='games'>
-                <h1>Games</h1>
+                <strong>Select Game</strong>
                 {this.state.games.map((game) =>
                     <Game key={game.id} webSocket={this.props.webSocket} game={game}/>
                 )}

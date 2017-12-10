@@ -10,12 +10,8 @@ class User extends Component {
         return (
             <div className='user'>
                 <div className='user-img'>
+                    <p><text><strong>{this.props.user.Name}</strong></text></p>
                     <img src='http://www.sp-fan.ru/upload/iblock/a94/sp_wow_guy.png'/>
-                </div>
-                <div className='user-info'>
-                    <p><text><strong>User:</strong> {this.props.nickname}</text></p>
-                    <p><text><strong>Favorite game:</strong> {this.props.favoriteGame}</text></p>
-                    <p><text><strong>Favorite game rating:</strong> {this.props.favoriteGameRating}</text></p>
                 </div>
             </div>
         );
@@ -23,9 +19,7 @@ class User extends Component {
 }
 
 User.propTypes = {
-    nickname: PropTypes.string.isRequired,
-    favoriteGame: PropTypes.string.isRequired,
-    favoriteGameRating: PropTypes.string.isRequired
+    user: PropTypes.object.isRequired
 };
 
 export default User;

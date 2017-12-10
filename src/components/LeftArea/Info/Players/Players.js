@@ -1,16 +1,19 @@
+import './Players.scss';
 import React from 'react';
 
 const UPDATE_USERS = 'updateUsers';
-// const GET_ONLINE_USERS = 'getOnlineUsers';
+const GET_ONLINE_USERS = 'getOnlineUsers';
 
 class Players extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            webSocket: new WebSocket('ws://localhost:8888/Users'),
             users: []
         };
-        this.state.webSocket.onmessage = this.onMessage;
+        this.props.webSocket.addEventListener('message', this.onMessage);
+    }
+    componentWillMount () {
+        this.props.webSocket.send(JSON.stringify({type: GET_ONLINE_USERS}));
     }
     onMessage = (data) => {
         const response = JSON.parse(data.data);
@@ -22,8 +25,11 @@ class Players extends React.Component {
     };
     render () {
         return (
-            <div >
-                {this.state.users.map((user) => <div key={user.Id}><text>{user.Name}</text></div>)}
+            <div className='players'>
+                <h2>Active Players</h2>
+                <ul>
+                    {this.state.users.map((user) => <li key={user.Id}><a>{user.Name}</a></li>)}
+                </ul>
             </div>
         );
     }

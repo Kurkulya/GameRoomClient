@@ -1,15 +1,18 @@
 .sign-form-wrap {
-    margin: 100px auto;
-    display: flex;
-    justify-content: center;
-    min-width: 200px;
-    max-width: 500px;
+    background-color: gray;
+    height: 100vh;
     .sign-form {
-        width: 100%;
         display: flex;
+        margin: 100px auto;
+        justify-content: center;
+        min-width: 200px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
         flex-direction: column;
         strong {
-            font-size: 25px;
+            color: whitesmoke;
+            font-size: 40px;
             margin-bottom: 10px;
         }
         input {
@@ -18,20 +21,40 @@
             border-radius: 3px;
             border:1px solid #ccc;
             outline: none;
-            font-size: 15px;
+            font-size: 20px;
         }
         button {
-            margin-bottom: 10px;
-            padding: 15px 45px;
+            margin: 20px;
+            padding: 5px 25px;
             align-self: flex-start;
-            background-color: cornflowerblue;
+            background-color: darkslategray;
             color: #fff;
-            border-radius: 3px;
             border: none;
             outline: none;
+            font-size: 15px;
+            &:hover {
+                background-color: cadetblue;
+            }
         }
         p {
             font-size: medium;
+        }
+    }
+    .top-button {
+        display: flex;
+        justify-content: flex-end;
+        color: whitesmoke;
+        font-size: 20px;
+        button {
+            padding: 5px 25px;
+            align-self: flex-start;
+            background-color: darkslategray;
+            color: #fff;
+            border: none;
+            outline: none;
+            &:hover {
+                background-color: cadetblue;
+            }
         }
     }
 }

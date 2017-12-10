@@ -1,50 +1,125 @@
 import './SignForm.scss';
-import {Link, Redirect} from 'react-router-dom';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {signIn} from '../../redux/actions/userActions';
+
+const LOGIN_SUCCESSFULL = 'loginSuccessfull';
+const REGISTRATION_SUCCESSFULL = 'registrationSuccessfull';
+const USER_NOT_FOUND = 'userNotFound';
+const USER_ALREADY_EXISTS = 'userAlreadyExists';
+const INCORRECT_PASSWORD = 'incorrectPassword';
+const USER_ALREADY_LOGIN = 'userAlreadyLogin';
 
 class SignIn extends Component {
     constructor (props) {
         super(props);
+        this.state = {
+            signInForm: true
+        };
+        this.props.webSocket.addEventListener('message', this.onMessage);
     }
     handleClick = () => {
-        let email = this.refs.email.value;
-        let password = this.refs.password.value;
-        this.props.signIn(email, password);
+        if (this.state.signInForm === true) {
+            let name = this.refs.name_SI.value.trim();
+            let password = this.refs.password_SI.value.trim();
+            this.props.webSocket.send(JSON.stringify(
+                {
+                    type: 'loginUser',
+                    data: {
+                        name: name,
+                        password: password
+                    }
+                }
+            ));
+        } else {
+            let name = this.refs.name_SU.value.trim();
+            let password = this.refs.password_SU.value.trim();
+            let pc = this.refs.pc.value.trim();
+            if (name.length < 3 || password.length < 6) {
+                alert('Incorrect name or password input!');
+            } else if (pc !== password) {
+                alert('Passwords do not match!');
+            } else {
+                this.props.webSocket.send(JSON.stringify(
+                    {
+                        type: 'registerUser',
+                        data: {
+                            name: name,
+                            password: password
+                        }
+                    }
+                ));
+            }
+        }
+    };
+    onMessage = (data) => {
+        const response = JSON.parse(data.data);
+        switch (response.type) {
+        case LOGIN_SUCCESSFULL:
+            this.props.signIn(response.data);
+            break;
+        case REGISTRATION_SUCCESSFULL:
+            this.setState({signInForm: true});
+            break;
+        case USER_ALREADY_EXISTS:
+            alert('User with this name already exists!');
+            break;
+        case USER_NOT_FOUND:
+            alert('User with this name does not exist!');
+            break;
+        case INCORRECT_PASSWORD:
+            alert('Incorrect password');
+            break;
+        case USER_ALREADY_LOGIN:
+            alert('User already signedIn!');
+            break;
+        }
+    };
+    goToSignUp = () => {
+        this.setState({signInForm: false});
+    };
+    goToSignIn = () => {
+        this.setState({signInForm: true});
     };
     render () {
-        const signInForm = <div className='sign-form-wrap'>
-            <div className="sign-form">
-                <strong>Sign in</strong>
-                <input name='email' type="email" placeholder="Email" ref="email" defaultValue="testvlad@mail.com"/>
-                <input type="password" placeholder="Password" ref="password" defaultValue="aa123456"/>
-                <button onClick={this.handleClick}>Sign in</button>
-                <p>Don`t have an account? <Link to="/sign_up">Sign up</Link></p>
+        const signInForm =
+            <div>
+                <div className='top-button'>
+                    <p>Don`t have an account? <button onClick={this.goToSignUp}>Sign up</button></p>
+                </div>
+                <div className="sign-form">
+                    <strong>SignIn</strong>
+                    <input name='nickname' placeholder="NickName" ref="name_SI"/>
+                    <input type="password" placeholder="Password" ref="password_SI"/>
+                    <div>
+                        <button onClick={this.handleClick}>Sign in</button>
+                    </div>
+                </div>
+            </div>;
+        const signUpFrom =
+            <div>
+                <div className='top-button'>
+                    <p> Already has an account? <button onClick={this.goToSignIn}>Sign in</button></p>
+                </div>
+                <div className="sign-form">
+                    <strong>SignUp</strong>
+                    <input name='nickname' placeholder="NickName" ref="name_SU"/>
+                    <input type="password" placeholder="Password" ref="password_SU"/>
+                    <input type="password" placeholder="Confirm password" ref="pc"/>
+                    <div>
+                        <button onClick={this.handleClick}>Sign up</button>
+                    </div>
+                </div>
+            </div>;
+        return (
+            <div className='sign-form-wrap'>
+                {this.state.signInForm ? signInForm : signUpFrom}
             </div>
-        </div>;
-        return this.props.isSignedIn || this.props.isPending ? <Redirect to='/'/> : signInForm;
+        );
     }
 }
 
 SignIn.propsType = {
-    signIn: PropTypes.func.isRequired,
-    isSignedIn: PropTypes.bool.isRequired,
-    isPending: PropTypes.bool.isRequired
+    signIn: PropTypes.func.isRequired
 };
 
-function mapStateToProps (state) {
-    return {
-        isSignedIn: state.user.isSignedIn,
-        isPending: state.user.isPending
-    };
-}
-
-function mapDispatchToProps (dispatch) {
-    return {
-        signIn: (email, password) => dispatch(signIn(email, password))
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;
